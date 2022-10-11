@@ -9,6 +9,8 @@ body {
 
 .container {
   padding: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .btn {

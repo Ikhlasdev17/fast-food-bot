@@ -25,13 +25,11 @@ const Products = () => {
     } else {
       let currentProductCount = selectedProducts.find(item => item.id === product.id)
       const newProducts = selectedProducts?.filter(item => item.id !== product.id)
-
       if (currentProductCount.count === 1) {
         setSelectedProducts(newProducts)
       } else {
         setSelectedProducts([...newProducts, {...currentProductCount, count: currentProductCount.count - 1}])
       }
-
     }
   }
 
