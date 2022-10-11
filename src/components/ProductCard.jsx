@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useTelegram } from '../hooks/useTelegram'
+// import { useTelegram } from '../hooks/useTelegram'
 const ProductCard = ({ idx, product, onClick, selectedProducts }) => {
   const [isClicked, setIsClicked] = useState(false) 
-  const { tg } = useTelegram()
-  console.log(tg);
+  // const { tg } = useTelegram()
 
   useEffect(() => {
     if (selectedProducts?.find(item => item.id === product.id)) {
