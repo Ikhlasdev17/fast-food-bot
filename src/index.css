@@ -156,6 +156,7 @@ body {
   right: -10px;
   animation-name: badge;
   animation-duration: 300ms;
+  font-weight: 500;
 }
 
 @keyframes badge {
