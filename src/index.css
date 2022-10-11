@@ -1,13 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,100;1,600;1,700&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+  padding: 1rem;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 20px!important;
+}
+
+.btn-add {
+  display: block;
+  padding: 5px;
+  border-radius: 8px;
+  background-color: orange;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  width: 100%;
+}
+
+
+.btn-remove {
+  display: block;
+  padding: 5px;
+  border-radius: 8px;
+  background-color: crimson;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  width: 100%;
+}
+
+
+
+.products-container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* padding: 1rem; */
+  gap: 1rem;
+}
+
+.product_card {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  position: relative;
+}
+
+.product_card img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  height: 100px!important;
+}
+
+.product_card .card-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+
+}
+
+.product_card .card-body .product-info {
+  color: #262626;
+  font-size: 14px;
+  padding: 5px 0;
+  height: 40px;
+  margin: 5px 0;
+  
+}
+
+.category-container h3 {
+  padding: 10px 0;
+  text-align: center;
+  background-color: aliceblue;
+  color: #242424;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.buttons.flex {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.buttons button {
+  font-size: 14px;
+  transition: 0.2s ease width;
+}
+
+.buttons.flex button {
+  width: 50%;
+  font-size: 24px;
+}
+
+.buttons.flex .btn-add {
+  animation-name: add;
+  animation-duration: 500ms;
+}
+
+.buttons.flex .btn-remove {
+  animation-name: remove;
+  animation-duration: 200ms;
+}
+ 
+
+@keyframes add {
+  0%{
+    width: 100%;
+  }
+
+  100%{
+    width: 50%;
+  }
+}
+
+@keyframes remove {
+  0%{
+    width: 0;
+  }
+
+  100%{
+    width: 50%;
+  }
+}
+ 
+
+.badge {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: orange;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -10px;
+  right: -10px;
+  animation-name: badge;
+  animation-duration: 300ms;
+}
+
+@keyframes badge {
+  0%{
+    transform: scale(0);
+  }
+
+  50%{
+    transform: scale(1.2);
+  }
+
+  100%{
+    transform: scale(1);
+  }
 }
