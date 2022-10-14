@@ -3,11 +3,13 @@ import axios from 'axios'
 import { baseUrl } from '../tools/api'
 import ProductCard from '../components/ProductCard'
 import Loading from '../components/Loading'
+import { useTelegram } from '../hooks/useTelegram'
 const Products = () => {
 
   const [products, setProducts] = useState([])
   const [selectedProducts, setSelectedProducts] = useState([])
   const [loading, setLoading] = useState(false)
+  const { tg } = useTelegram()
   useEffect(() => {
     setLoading(true)
     axios.get(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/category`)
@@ -16,6 +18,23 @@ const Products = () => {
       })
       .finally(() => setLoading(false))
   }, [])
+
+  useEffect(() => {
+    const allSum = []
+    selectedProducts.map((item) => {
+      allSum.push(item.price * item.count)
+    })
+    let totalSum = allSum.reduce((prev, curr) => {
+      return Number(prev + curr)
+    }, 0)
+    console.log(tg.MainButton);
+    if (selectedProducts?.length) {
+      tg.MainButton.show()
+      tg.MainButton.setText(`Ordering ${totalSum?.toLocaleString()} UZS`)
+    } else {
+      tg.MainButton.hide()
+    }
+  }, [selectedProducts])
 
   const addToCart = (product, type) => {
     const index = selectedProducts?.findIndex(item => item?.id === product.id)
