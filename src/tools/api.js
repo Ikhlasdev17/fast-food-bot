@@ -1,1 +1,1 @@
-export const baseUrl = "https://arzu.uz"
+export const baseUrl = "http://cors-anywhere.herokuapp.com/https://arzu.uz"
