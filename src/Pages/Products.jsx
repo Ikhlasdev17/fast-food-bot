@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { baseUrl } from '../tools/api'
 import ProductCard from '../components/ProductCard'
+import Loading from '../components/Loading'
 const Products = () => {
 
   const [products, setProducts] = useState([])
   const [selectedProducts, setSelectedProducts] = useState([])
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
-    axios.get(`${baseUrl}/api/v1/category`)
+    setLoading(true)
+    axios.get(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/category`)
       .then((res) => {
         setProducts(res.data.payload);
       })
+      .finally(() => setLoading(false))
   }, [])
 
   const addToCart = (product, type) => {
@@ -42,18 +46,25 @@ const Products = () => {
   return (
     <div className='container'>
       {
-        products?.map((item, index) => {
-          return <div key={index} className='category-container'>
-            <h3>{ item?.name }</h3>
-            <div className='products-container'>
-            {
-              item?.product?.map((product, idx) => (
-                <ProductCard key={idx} idx={idx} product={product} onClick={addToCart} selectedProducts={selectedProducts} />
-              ))
-            }
+        loading ? (
+          <>
+            <br /><br />
+            <Loading />
+          </>
+        ) : (
+          products?.map((item, index) => {
+            return <div key={index} className='category-container'>
+              <h3>{ item?.name }</h3>
+              <div className='products-container'>
+              {
+                item?.product?.map((product, idx) => (
+                  <ProductCard key={idx} idx={idx} product={product} onClick={addToCart} selectedProducts={selectedProducts} />
+                ))
+              }
+              </div>
             </div>
-          </div>
-        })
+          })
+        )
       }
     </div>
   )
