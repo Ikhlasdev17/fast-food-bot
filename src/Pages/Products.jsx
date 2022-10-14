@@ -7,7 +7,7 @@ const Products = () => {
   const [products, setProducts] = useState([])
   const [selectedProducts, setSelectedProducts] = useState([])
   useEffect(() => {
-    axios.get(`/api/v1/category`)
+    axios.get(`${baseUrl}/api/v1/category`)
       .then((res) => {
         setProducts(res.data.payload);
       })
