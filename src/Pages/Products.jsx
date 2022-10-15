@@ -32,7 +32,7 @@ const Products = () => {
     }, 0)
     if (selectedProducts?.length) {
       tg.MainButton.show()
-      tg.MainButton.setText(`Ordering ${totalSum?.toLocaleString()} UZS`)
+      tg.MainButton.setText(`Оформить заказ ${totalSum?.toLocaleString()} UZS`)
     } else {
       tg.MainButton.hide()
     }
@@ -71,7 +71,7 @@ const Products = () => {
     tg.MainButton.hide()
     axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
       .then((res) => {
-        tg.showAlert("Success!")
+        tg.showAlert("Ваш заказ принят! Наши операторы свяжутся с вами в ближайшее время.")
         tg.close()
       }) 
   }, [productsForBackend])
