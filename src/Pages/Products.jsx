@@ -69,6 +69,7 @@ const Products = () => {
 
 
   const sendData = useCallback(() => {
+    tg.MainButton.hide()
     axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
       .then((res) => {
         tg.showAlert("Success!")
