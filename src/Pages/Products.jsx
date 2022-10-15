@@ -77,11 +77,16 @@ const Products = () => {
     
     console.log({ user_id: params.userId, orders: productsForBackend });
     
-    tg.MainButton.onClick(() => {
-      sendToOrder()
-      tg.MainButton.hide()
-      tg.close()
-    })
+    useEffect(() => {
+      tg.onEvent("mainButtonClicked", () => {
+        sendToOrder()
+        return (
+          tg.offEvent("mainButtonClicked", () => {
+            tg.showAlert("Salom")
+          })
+        )
+      })
+    }, [])
 
 
 
