@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { baseUrl } from '../tools/api'
 import ProductCard from '../components/ProductCard'
@@ -37,6 +37,12 @@ const Products = () => {
     } else {
       tg.MainButton.hide()
     }
+
+    let newProducts = []
+    selectedProducts.map((item) => {
+      newProducts.push({ product_id: item.id, count: item.count, price: Number(item.price) })
+    })
+    setProductsForBackend(newProducts)
   }, [selectedProducts])
 
   const addToCart = (product, type) => {
@@ -58,25 +64,25 @@ const Products = () => {
       }
     }
 
-    let newProducts = []
-    selectedProducts.map((item) => {
-      newProducts.push({ product_id: item.id, count: item.count, price: Number(item.price) })
-    })
-    setProductsForBackend(newProducts)
+    
   }
+
+
+  const sendData = useCallback(() => {
+    axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
+      .then((res) => {
+        tg.showAlert("Success!")
+        tg.close()
+      }) 
+  }, [productsForBackend])
 
  
     useEffect(() => {
-      tg.onEvent("mainButtonClicked", async () => {
-        if (!orderSended) {
-          setOrderSended(true)
-          await axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
-            .then((res) => {
-              tg.showAlert("Success!")
-            }) 
-        }
-      })
-    }, [productsForBackend])
+      tg.onEvent("mainButtonClicked", sendData)
+      return () => {
+        tg.offEvent('mainButtonClicked', sendData)
+      }
+    }, [sendData])
 
 
 
