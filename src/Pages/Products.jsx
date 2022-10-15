@@ -36,6 +36,8 @@ const Products = () => {
     } else {
       tg.MainButton.hide()
     }
+
+
     let newProducts = []
     selectedProducts.map((item) => {
       newProducts.push({ product_id: item.id, count: item.count, price: Number(item.price) })
@@ -68,12 +70,10 @@ const Products = () => {
   const sendToOrder = () => {
         axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
         .then((res) => {
-          tg.showAlert("Hello World")
-          setProductsForBackend([])
+          tg.showAlert("Success!")
         })
     }
     
-    console.log({ user_id: params.userId, orders: productsForBackend });
     
     useEffect(() => {
       tg.onEvent("mainButtonClicked", () => {
