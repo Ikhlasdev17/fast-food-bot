@@ -4,12 +4,15 @@ import { baseUrl } from '../tools/api'
 import ProductCard from '../components/ProductCard'
 import Loading from '../components/Loading'
 import { useTelegram } from '../hooks/useTelegram'
+import { useParams } from 'react-router-dom'
 const Products = () => {
 
   const [products, setProducts] = useState([])
   const [selectedProducts, setSelectedProducts] = useState([])
   const [loading, setLoading] = useState(false)
   const { tg } = useTelegram()
+  const params = useParams()
+  const [productsForBackend, setProductsForBackend] = useState([])
   useEffect(() => {
     setLoading(true)
     axios.get(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/category`)
@@ -33,6 +36,12 @@ const Products = () => {
     } else {
       tg.MainButton.hide()
     }
+    let newProducts = []
+    selectedProducts.map((item) => {
+      newProducts.push({ product_id: item.id, count: item.count, price: item.price })
+    })
+    setProductsForBackend(newProducts)
+
   }, [selectedProducts])
 
   const addToCart = (product, type) => {
@@ -57,8 +66,13 @@ const Products = () => {
 
 
   const sendToOrder = () => {
-    
+    axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
+      .then((res) => {
+        tg.shoAlert("Hello World")
+      })
+
   }
+
 
 
   return (
