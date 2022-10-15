@@ -70,12 +70,16 @@ const Products = () => {
       .then((res) => {
         tg.showAlert("Hello World")
         console.log({ user_id: params.userId, orders: productsForBackend });
+        tg.close()
       })
   }
 
   console.log({ user_id: params.userId, orders: productsForBackend });
 
-  tg.MainButton.onClick(sendToOrder)
+  tg.MainButton.onClick(() => {
+    sendToOrder()
+    tg.MainButton.hide()
+  })
 
 
 
