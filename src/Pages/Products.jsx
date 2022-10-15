@@ -68,7 +68,7 @@ const Products = () => {
 
 
   const sendToOrder = () => {
-        axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
+        axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: selectedProducts })
         .then((res) => {
           tg.showAlert("Success!")
         })
