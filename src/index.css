@@ -93,6 +93,7 @@ body {
   text-align: center;
   background-color: var(--tg-theme-secondary-bg-color)!important;
   color: var(--tg-theme-text-color)!important;
+  border-radius: 6px;
 }
 
 .buttons {
