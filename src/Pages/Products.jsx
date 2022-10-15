@@ -70,8 +70,9 @@ const Products = () => {
       .then((res) => {
         tg.shoAlert("Hello World")
       })
-
   }
+
+  tg.MainButton.onClick(sendToOrder)
 
 
 
