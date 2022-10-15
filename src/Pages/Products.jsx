@@ -66,13 +66,11 @@ const Products = () => {
 
 
   const sendToOrder = () => {
-      if (productsForBackend.length) {
         axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
         .then((res) => {
           tg.showAlert("Hello World")
           setProductsForBackend([])
         })
-      }
     }
     
     console.log({ user_id: params.userId, orders: productsForBackend });
@@ -80,11 +78,6 @@ const Products = () => {
     useEffect(() => {
       tg.onEvent("mainButtonClicked", () => {
         sendToOrder()
-        return (
-          tg.offEvent("mainButtonClicked", () => {
-            tg.showAlert("Salom")
-          })
-        )
       })
     }, [])
 
