@@ -68,10 +68,13 @@ const Products = () => {
 
  
     useEffect(() => {
-      tg.onEvent("mainButtonClicked", () => {
-        axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
+      tg.onEvent("mainButtonClicked", async () => {
+        await axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
         .then((res) => {
           tg.showAlert("Success!")
+        })
+        tg.offEvent("mainButtonClicked", () => {
+          tg.MainButton.hide()
         })
       })
     }, [productsForBackend])
