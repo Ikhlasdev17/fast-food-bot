@@ -39,7 +39,7 @@ const Products = () => {
 
     let newProducts = []
     selectedProducts.map((item) => {
-      newProducts.push({ product_id: item.id, count: item.count, price: Number(item.price + item.count) })
+      newProducts.push({ product_id: item.id, count: item.count, price: Number(Number(item.price) * Number(item.count)) })
     })
     setProductsForBackend(newProducts)
   }, [selectedProducts])
