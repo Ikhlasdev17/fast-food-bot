@@ -13,6 +13,7 @@ const Products = () => {
   const { tg } = useTelegram()
   const params = useParams()
   const [productsForBackend, setProductsForBackend] = useState([])
+  const [orderSended, setOrderSended] = useState(false)
   useEffect(() => {
     setLoading(true)
     axios.get(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/category`)
@@ -69,13 +70,13 @@ const Products = () => {
  
     useEffect(() => {
       tg.onEvent("mainButtonClicked", async () => {
-        await axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
-        .then((res) => {
-          tg.showAlert("Success!")
-        })
-        tg.offEvent("mainButtonClicked", () => {
-          tg.MainButton.hide()
-        })
+        if (!orderSended) {
+          setOrderSended(true)
+          await axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
+            .then((res) => {
+              tg.showAlert("Success!")
+            }) 
+        }
       })
     }, [productsForBackend])
 
