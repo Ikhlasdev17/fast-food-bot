@@ -27,7 +27,6 @@ const Products = () => {
     let totalSum = allSum.reduce((prev, curr) => {
       return Number(prev + curr)
     }, 0)
-    console.log(tg.MainButton);
     if (selectedProducts?.length) {
       tg.MainButton.show()
       tg.MainButton.setText(`Ordering ${totalSum?.toLocaleString()} UZS`)
