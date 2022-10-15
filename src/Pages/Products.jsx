@@ -13,7 +13,6 @@ const Products = () => {
   const { tg } = useTelegram()
   const params = useParams()
   const [productsForBackend, setProductsForBackend] = useState([])
-  const [orderSended, setOrderSended] = useState(false)
   useEffect(() => {
     setLoading(true)
     axios.get(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/category`)
@@ -40,7 +39,7 @@ const Products = () => {
 
     let newProducts = []
     selectedProducts.map((item) => {
-      newProducts.push({ product_id: item.id, count: item.count, price: Number(item.price) })
+      newProducts.push({ product_id: item.id, count: item.count, price: Number(item.price + item.count) })
     })
     setProductsForBackend(newProducts)
   }, [selectedProducts])
