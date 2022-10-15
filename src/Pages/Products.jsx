@@ -70,7 +70,7 @@ const Products = () => {
         axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
         .then((res) => {
           tg.showAlert("Hello World")
-          console.log({ user_id: params.userId, orders: productsForBackend });
+          setProductsForBackend([])
         })
       }
     }
@@ -81,7 +81,6 @@ const Products = () => {
       sendToOrder()
       tg.MainButton.hide()
       tg.close()
-      setProductsForBackend([])
     })
 
 
