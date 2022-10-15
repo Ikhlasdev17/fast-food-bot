@@ -66,20 +66,15 @@ const Products = () => {
     }
   }
 
-
-  const sendToOrder = () => {
-        axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: selectedProducts })
+ 
+    useEffect(() => {
+      tg.onEvent("mainButtonClicked", () => {
+        axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
         .then((res) => {
           tg.showAlert("Success!")
         })
-    }
-    
-    
-    useEffect(() => {
-      tg.onEvent("mainButtonClicked", () => {
-        sendToOrder()
       })
-    }, [])
+    }, [productsForBackend])
 
 
 
