@@ -37,14 +37,6 @@ const Products = () => {
     } else {
       tg.MainButton.hide()
     }
-
-
-    let newProducts = []
-    selectedProducts.map((item) => {
-      newProducts.push({ product_id: item.id, count: item.count, price: Number(item.price) })
-    })
-    setProductsForBackend(newProducts)
-
   }, [selectedProducts])
 
   const addToCart = (product, type) => {
@@ -65,6 +57,12 @@ const Products = () => {
         setSelectedProducts([...newProducts, {...currentProductCount, count: currentProductCount.count - 1}])
       }
     }
+
+    let newProducts = []
+    selectedProducts.map((item) => {
+      newProducts.push({ product_id: item.id, count: item.count, price: Number(item.price) })
+    })
+    setProductsForBackend(newProducts)
   }
 
  
