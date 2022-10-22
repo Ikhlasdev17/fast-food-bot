@@ -13,6 +13,24 @@ const Products = () => {
   const { tg } = useTelegram()
   const params = useParams()
   const [productsForBackend, setProductsForBackend] = useState([])
+
+  const ruLang = {
+    order:"Оформить заказ",
+    success:"Нажмите кнопку ЗАКРЫТЬ. Для вашего удобство, Пожалуйста выберите вид доставки."
+  }
+
+  const qqLang = {
+    order: "Буйыртпаны тастыйықлаў",
+    success: "“Закритъ” туймесин басың ҳәм өзиңизге қолай хызмет түрин сайлаң."
+  }
+
+  const uzLang = {
+    order: "Buyurtmani tasdiqlash",
+    success:"“Закритъ” tugmasini bosing va o'zingizga qulay yetgazib berish turini tanlang."
+  }
+
+  let lang = params?.lang === "qq" ? qqLang : params?.lang === "uz" ? uzLang : ruLang
+
   useEffect(() => {
     setLoading(true)
     axios.get(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/category`)
@@ -32,7 +50,7 @@ const Products = () => {
     }, 0)
     if (selectedProducts?.length) {
       tg.MainButton.show()
-      tg.MainButton.setText(`Оформить заказ ${totalSum?.toLocaleString()} UZS`)
+      tg.MainButton.setText(`${lang?.order} ${totalSum?.toLocaleString()} UZS`)
     } else {
       tg.MainButton.hide()
     }
@@ -71,7 +89,7 @@ const Products = () => {
     tg.MainButton.hide()
     axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
       .then((res) => {
-        tg.showAlert("Ваш заказ принят! Наши операторы свяжутся с вами в ближайшее время.")
+        tg.showAlert(lang.success)
         tg.close()
       }) 
   }, [productsForBackend])
