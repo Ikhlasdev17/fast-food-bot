@@ -26,7 +26,7 @@ const Products = () => {
 
   const uzLang = {
     order: "Buyurtmani tasdiqlash",
-    success:"“Закритъ” tugmasini bosing va o'zingizga qulay yetgazib berish turini tanlang."
+    success:"“Закритъ” tugmasini bosing va o'zingizga qulay xizmat turini tanlang."
   }
 
   let lang = params?.lang === "qq" ? qqLang : params?.lang === "uz" ? uzLang : ruLang
