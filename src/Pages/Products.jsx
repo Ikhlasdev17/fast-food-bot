@@ -87,7 +87,7 @@ const Products = () => {
 
   const sendData = useCallback(() => {
     tg.MainButton.hide()
-    axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: params.userId, orders: productsForBackend })
+    axios.post(`${process.env.NODE_ENV === "production" ? baseUrl : ""}/api/v1/order/add`, { user_id: user.id, orders: productsForBackend })
       .then((res) => {
         tg.showAlert(lang.success)
         tg.close()
@@ -106,7 +106,6 @@ const Products = () => {
 
   return (
     <div className='container'>
-      {JSON.stringify(user)}
       {
         loading ? (
           <>
