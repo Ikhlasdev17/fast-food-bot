@@ -10,10 +10,10 @@ const Products = () => {
   const [products, setProducts] = useState([])
   const [selectedProducts, setSelectedProducts] = useState([])
   const [loading, setLoading] = useState(false)
-  const { tg } = useTelegram()
+  const { tg, user } = useTelegram()
   const params = useParams()
   const [productsForBackend, setProductsForBackend] = useState([])
-
+  console.log(user);
   const ruLang = {
     order:"Оформить заказ",
     success:"Нажмите кнопку ЗАКРЫТЬ. Для вашего удобство, Пожалуйста выберите вид доставки."
@@ -106,6 +106,7 @@ const Products = () => {
 
   return (
     <div className='container'>
+      {JSON.stringify(user)}
       {
         loading ? (
           <>
