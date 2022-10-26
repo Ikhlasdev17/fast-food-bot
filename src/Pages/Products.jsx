@@ -93,7 +93,7 @@ const Products = () => {
         tg.close()
       }) 
       .catch((err) => {
-        tg.showAlert(JSON.stringify(err))
+        tg.showAlert("error")
       })
       .finally(() => {
         tg.showAlert(user.id)
