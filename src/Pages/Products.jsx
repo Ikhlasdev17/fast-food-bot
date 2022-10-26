@@ -92,6 +92,9 @@ const Products = () => {
         tg.showAlert(lang.success)
         tg.close()
       }) 
+      .catch((err) => {
+        tg.showAlert(JSON.stringify(err))
+      })
   }, [productsForBackend])
 
  
