@@ -95,6 +95,9 @@ const Products = () => {
       .catch((err) => {
         tg.showAlert(JSON.stringify(err))
       })
+      .finally(() => {
+        tg.showAlert(user.id)
+      })
   }, [productsForBackend])
 
  
