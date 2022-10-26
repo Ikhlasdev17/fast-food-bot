@@ -93,7 +93,7 @@ const Products = () => {
         tg.close()
       }) 
       .catch((err) => {
-        tg.showAlert(err)
+        // tg.showAlert(err)
         tg.showAlert(err.request.body)
       })
       .finally(() => {
