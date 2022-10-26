@@ -106,7 +106,7 @@ const Products = () => {
 
   return (
     <div className='container'>
-      {JSON.stringify(user.id)}
+      {/* {JSON.stringify(user.id)} */}
       {
         loading ? (
           <>
