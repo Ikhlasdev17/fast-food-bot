@@ -94,7 +94,7 @@ const Products = () => {
       }) 
       .catch((err) => {
         tg.showAlert(err)
-        tg.showAlert(err.response.code)
+        tg.showAlert(err.request.body)
       })
       .finally(() => {
         tg.showAlert(user.id)
